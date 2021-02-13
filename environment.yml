@@ -1,0 +1,28 @@
+name: abp
+channels:
+  - anaconda
+  - conda-forge
+  
+dependencies:
+  - python=3.6
+  - scikit-learn=0.22.1
+  - pandas
+  - numpy=1.18
+  - matplotlib
+  - jupyterlab
+  - nb_conda_kernels
+  - seaborn
+  - keras
+  - keras-gpu
+  - tensorflow=2.2.0
+  - tqdm
+  - ipywidgets
+  - pywavelets
+  - wfdb
+  - sqlalchemy
+  - psycopg2
+  - pydot
+  - seaborn
+  - pip
+  - pip:
+    - bootstrapped
