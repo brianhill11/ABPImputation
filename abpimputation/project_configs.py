@@ -71,7 +71,7 @@ max_windows_per_file = 50
 shift_window_size = 3200
 
 # column name mapping for waveforms
-signal_column_names = {"II": "ekg", "PLETH": "sp02", "ABP": "art"}
+signal_column_names = {"II": "ekg", "PLETH": "ppg", "ABP": "art"}
 # column names for non-invasive blood pressure measurements
 # should be in the order: systolic, diastolic, mean
 nibp_column_names = ["pseudo_NIBP_sys_5min", "pseudo_NIBP_dias_5min", "pseudo_NIBP_mean_5min"]
