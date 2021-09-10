@@ -1,7 +1,10 @@
 import sys
+import os
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
+from tqdm import tqdm
 
 sys.path.append("../../")
 import project_configs
@@ -108,3 +111,42 @@ def calc_waveform_feats(window: np.ndarray, debug=False):
         return np.array([heart_rate, np.nan, np.nan])
 
     return np.array([heart_rate, np.median(pat), np.std(pat)])
+
+def create_feature_matrix(X_train: np.ndarray, pickle_dir="../models/vnet_32s_mimic"):
+    """[summary]
+
+    Args:
+        X_train (np.ndarray): [description]
+        pickle_dir (str, optional): path to directory containing pickled summary
+            statistics used for standardizing features. 
+            Defaults to "../models/vnet_32s_mimic".
+
+    Returns:
+        np.ndarray: numpy array with additional waveform features added
+    """
+    # load pickled mean/std and standardize waveform signals
+    mean_vals = pickle.load(open(os.path.join(pickle_dir, "mean_vals.pkl"), "rb"))
+    std_vals = pickle.load(open(os.path.join(pickle_dir, "std_vals.pkl"), "rb"))
+    X_train = (X_train - mean_vals) / std_vals
+
+    # calculate waveform features
+    wave_feats = []
+    for i in tqdm(range(X_train.shape[0])):
+        wave_feats.append(calc_waveform_feats(X_train[i], debug=False))
+
+    # log transform the pulse arrival times
+    wave_feats[:, 1] = np.log(wave_feats[:, 1])
+
+    # load pickled waveform feature median/std and scale the waveform features
+    wave_feats_median = pickle.load(open(os.path.join(pickle_dir, "wave_feats_median.pkl"), "rb"))
+    wave_feats_std = pickle.load(open(os.path.join(pickle_dir, "wave_feats_std.pkl"), "rb"))
+    wave_feats_scaled = (wave_feats - wave_feats_median) / wave_feats_std
+
+    # fill in missing waveform feature values
+    for i in range(wave_feats_scaled.shape[1]):
+        wave_feats_scaled[:, i] = np.nan_to_num(wave_feats_scaled[:, i], nan=wave_feats_median[i])
+
+    # concatenate waveform signals with waveform feature matrix
+    X_train = np.concatenate((X_train, np.repeat(np.expand_dims(wave_feats_scaled, axis=1), repeats=project_configs.window_size, axis=1)), axis=2)
+
+    return X_train
