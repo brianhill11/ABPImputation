@@ -83,23 +83,23 @@ def calc_waveform_feats(window: np.ndarray, debug=False):
 
     try:
         # calculate PAT in seconds
-        ptt = (ppg_peaks - ecg_peaks) / project_configs.sample_freq
+        pat = (ppg_peaks - ecg_peaks) / project_configs.sample_freq
         if debug:
-            print(ptt)
+            print(pat)
 
         # remove any inplausible PAT
         # must be positive PAT
-        ptt = ptt[ptt > 0.1]
+        pat = pat[pat > 0.1]
 
         # must be less than some threshold
-        ptt = ptt[ptt < 1.0]
+        pat = pat[pat < 1.0]
 
         # must be at least 2 measurements in window
-        if len(ptt) < 2:
-            ptt = np.nan
+        if len(pat) < 2:
+            pat = np.nan
 
         if debug:
-            print(ptt)
+            print(pat)
 
     except ValueError as e:
         if debug:
@@ -107,4 +107,4 @@ def calc_waveform_feats(window: np.ndarray, debug=False):
             print(ecg_props)
         return np.array([heart_rate, np.nan, np.nan])
 
-    return np.array([heart_rate, np.median(ptt), np.std(ptt)])
+    return np.array([heart_rate, np.median(pat), np.std(pat)])
