@@ -7,7 +7,7 @@ from scipy.signal import find_peaks
 from tqdm import tqdm
 
 sys.path.append("../../")
-import project_configs
+from abpimputation import project_configs
 
 
 def ppg_scaling(wave_array: np.ndarray):
@@ -112,7 +112,7 @@ def calc_waveform_feats(window: np.ndarray, debug=False):
 
     return np.array([heart_rate, np.median(pat), np.std(pat)])
 
-def create_feature_matrix(X_train: np.ndarray, pickle_dir="../models/vnet_32s_mimic"):
+def create_feature_matrix(X_train: np.ndarray, pickle_dir="abpimputation/models/vnet_32s_mimic"):
     """[summary]
 
     Args:
@@ -133,6 +133,7 @@ def create_feature_matrix(X_train: np.ndarray, pickle_dir="../models/vnet_32s_mi
     wave_feats = []
     for i in tqdm(range(X_train.shape[0])):
         wave_feats.append(calc_waveform_feats(X_train[i], debug=False))
+    wave_feats = np.array(wave_feats)
 
     # log transform the pulse arrival times
     wave_feats[:, 1] = np.log(wave_feats[:, 1])
