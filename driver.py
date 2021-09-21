@@ -3,19 +3,36 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import argparse
 
 import abpimputation.project_configs as project_configs
 from abpimputation.ABPImputer import ABPImputer
 from abpimputation.preprocessing.preprocess import preprocess
 from abpimputation.preprocessing.features import create_feature_matrix
-# %% get list of files
 
-input_dir = "/Users/bhizzle/Downloads/cvc_test"
-save_dir = "/Users/bhizzle/Downloads/abp_imputation_test"
-base_filename = "p015046-2199-01-08-22-03_merged.csv.gz"
-f = os.path.join(input_dir, base_filename)
+# %% get list of files
+parser = argparse.ArgumentParser()
+parser.add_argument('--input-file', 
+    help='The preprocessed .csv.gz MIMIC waveform files', 
+    required=True)
+parser.add_argument('--save-dir', 
+    help='Directory to save the output files', 
+    required=True)
+args = parser.parse_args()
+
+# input_dir = "/Users/bhizzle/Downloads/cvc_test"
+# base_filename = "p015046-2199-01-08-22-03_merged.csv.gz"
+# save_dir = "/Users/bhizzle/Downloads/abp_imputation_test"
+# f = os.path.join(input_dir, base_filename)
+
+f = args.input_file
+base_filename = os.path.basename(f)
+
+# create save directory if it does not exist
+save_dir = args.save_dir
 os.makedirs(save_dir, exist_ok=True)
 
+# %% read in the data from file
 data = pd.read_csv(f, index_col=0)
 data.head()
 
