@@ -5,10 +5,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import argparse
 
-import abpimputation.project_configs as project_configs
-from abpimputation.ABPImputer import ABPImputer
-from abpimputation.preprocessing.preprocess import preprocess
-from abpimputation.preprocessing.features import create_feature_matrix
 
 # %% get list of files
 parser = argparse.ArgumentParser()
@@ -18,6 +14,9 @@ parser.add_argument('--input-file',
 parser.add_argument('--save-dir', 
     help='Directory to save the output files', 
     required=True)
+parser.add_argument('--overwrite', 
+    action='store_true',
+    help='Flag for overwriting existing files.(default) Existing files skipped')
 args = parser.parse_args()
 
 # input_dir = "/Users/bhizzle/Downloads/cvc_test"
@@ -31,6 +30,17 @@ base_filename = os.path.basename(f)
 # create save directory if it does not exist
 save_dir = args.save_dir
 os.makedirs(save_dir, exist_ok=True)
+
+result_file = os.path.join(save_dir, base_filename)
+# if file exists and overwrite flag not set, skip file
+if os.path.exists(result_file) and not args.overwrite:
+    print(f"File {result_file} exists and overwrite flag not set. Skipping...")
+    exit()
+
+import abpimputation.project_configs as project_configs
+from abpimputation.ABPImputer import ABPImputer
+from abpimputation.preprocessing.preprocess import preprocess
+from abpimputation.preprocessing.features import create_feature_matrix
 
 # %% read in the data from file
 data = pd.read_csv(f, index_col=0)
@@ -81,4 +91,4 @@ data["imputed_abp"].iloc[:y_pred_flattened.shape[0]]  = y_pred_flattened
 # plt.show()
 
 # %% write new file to disk
-data.to_csv(os.path.join(save_dir, base_filename), header=True, index=True)
+data.to_csv(result_file, header=True, index=True)
