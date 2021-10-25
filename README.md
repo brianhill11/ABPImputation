@@ -5,9 +5,9 @@ For detailed information, please see [our paper](https://www.nature.com/articles
 
 ## Installation
 
-Install the anaconda requirements:
+Install the required packages:
 ```
-conda env create -f environment.yml
+pip install -r requirements.txt
 ```
 
 ## Data format 
