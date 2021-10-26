@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Hill"
+  given-names: "Brian L."
+  orcid: "https://orcid.org/0000-0002-6881-5770"
+- family-names: "Rakocz"
+  given-names: "Nadav"
+- family-names: "Rudas"
+  given-names: "Akos"
+- family-names: "Chiang"
+  given-names: "Jeffrey N."
+- family-names: "Wang"
+  given-names: "Sidong"
+- family-names: "Hofer"
+  given-names: "Ira"
+- family-names: "Cannesson"
+  given-names: "Maxime"
+- family-names: "Halperin"
+  given-names: "Eran"
+title: "PPG Quality Index"
+url: "https://github.com/brianhill11/PPG_QI"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Hill"
+    given-names: "Brian L."
+    orcid: "https://orcid.org/0000-0002-6881-5770"
+  - family-names: "Rakocz"
+    given-names: "Nadav"
+  - family-names: "Rudas"
+    given-names: "Akos"
+  - family-names: "Chiang"
+    given-names: "Jeffrey N."
+  - family-names: "Wang"
+    given-names: "Sidong"
+  - family-names: "Hofer"
+    given-names: "Ira"
+  - family-names: "Cannesson"
+    given-names: "Maxime"
+  - family-names: "Halperin"
+    given-names: "Eran"
+  doi: "10.1038/s41598-021-94913-y"
+  journal: "Scientific Reports"
+  month: 8
+  start: 15755 # First page number
+  end: 15755 # Last page number
+  title: "Imputation of the continuous arterial line blood pressure waveform from non-invasive measurements using deep learning"
+  issue: 1
+  volume: 11
+  year: 2021
