@@ -10,8 +10,17 @@ For detailed information, please see [our paper](https://www.nature.com/articles
 
 ## Installation
 
-Install the required packages:
+### Using pip (TODO)
+Install the package using pip:
 ```
+pip install abpimputation
+```
+
+### From Github repo 
+Clone the repo and install the required packages:
+```
+git clone https://github.com/brianhill11/ABPImputation.git
+cd ABPImputation
 pip install -r requirements.txt
 ```
 
