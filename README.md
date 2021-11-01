@@ -53,6 +53,38 @@ in the [project_configs.py](abpimputation/project_configs.py) file, using the or
 
 ## Generating predictions with pre-trained model
 
+Generating predictions using the pre-trained model generally
+requires 3 steps: 
+
+1. loading waveform data (in the expected format, see [Data format section](#data-format))
+2. preprocessing the waveform data to add additional features
+3. load the pre-trained model and generated the imputed waveform(s)
+
+Here is an example code segment:
+
+```python
+from abpimputation.ABPImputer import ABPImputer
+from abpimputation.preprocessing.preprocess import preprocess
+
+# read in the data from file
+data = pd.read_csv(f, index_col=0)
+
+# preprocess the data 
+preprocessed_data = preprocess(data)
+
+# split into input/target data
+y_true = preprocessed_data["art"]
+X = preprocessed_data.iloc[:, :-1]
+# add in pseudo-time axis 
+X = np.expand_dims(X, axis=1)
+
+# instantiate ABPImputer
+abp = ABPImputer()
+
+# generate predicted ABP waveform
+y_pred = abp.predict(X)
+```
+
 ## Calibrating the model using additional data
 
 ## Training from scratch
