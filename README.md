@@ -1,7 +1,8 @@
 # ABPImputation
 
 ABPImputation is a package for imputing the arterial blood pressure (ABP) waveform using non-invasive physiological waveforms (photoplethysmogram, or PPG, and electrocardiogram, or ECG/EKG). 
-For detailed information, please see [our paper](https://www.nature.com/articles/s41598-021-94913-y).  
+For detailed information, please see our paper: [Imputation of the continuous arterial line 
+blood pressure waveform from non-invasive measurements using deep learning](https://www.nature.com/articles/s41598-021-94913-y).  
 
 <p align="center">
   <img src="https://github.com/brianhill11/media/blob/master/abpimputation/ABPImputation.gif" alt="imputation-gif">
