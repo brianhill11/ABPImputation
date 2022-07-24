@@ -30,6 +30,8 @@ pip install -r requirements.txt
 
 The preprocessed MIMIC .npy files can be downloaded [here](https://app.box.com/s/ij8ieao7h0ustwd43oiuz2207m9s7mxh).
 
+Files containing train/validation/test patient IDs can be found in the [abpimputation/data/metadata](abpimputation/data/metadata) directory.
+
 ## Data format 
 
 We assume that the input waveform data has been sampled at 100 Hz. 
