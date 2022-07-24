@@ -11,12 +11,6 @@ blood pressure waveform from non-invasive measurements using deep learning](http
 
 ## Installation
 
-### Using pip (TODO)
-Install the package using pip:
-```
-pip install abpimputation
-```
-
 ### From Github repo 
 Clone the repo and install the required packages:
 ```
